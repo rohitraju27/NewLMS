@@ -50,24 +50,24 @@ exports.login = catchAsync(async (req,res,next) => {
 })
 
 exports.protect = catchAsync(async (req,res,next) => {
-    let token
-
+    // getting token and check if it is there
+    let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-        token = req.headers.authorization.split(' ')[1]    
+        token = req.headers.authorization.split(' ')[1]
     }
     if(!token){
-        return next(new AppError('You are not logged in to get access',401))
+        return next(new AppError('You are not logged in. Please Login',401))
     }
-
-    const decoded = await promisify(jwt.verify)(token,process.env.JWT_EXPIRES_IN)
-
-    const freshUser = await User.findById(decoded.id)
-    if(!freshUser){
-        return next(new AppError('The user is belogging to this token does no longer exsit',401))
+    // verifying jwt token
+    const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET)
+    
+    const currentUser = await User.findById(decoded.id)
+    if(!currentUser){
+        return next(new AppError('The User is belogging to this token does no longer exsist',401))
     }
-    if(freshUser.changedPasswordAt(decoded.iat)){
-        return next(new AppError('User recently changed password. Please login again',401))
+    if(currentUser.changedPasswordAfter(decoded.ist)){
+        return next(new AppError('User recently changed password. Please Login again',401))
     }
-    req.user = freshUser
-    next()
+    req.user = currentUser
+    next()  
 })
