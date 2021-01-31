@@ -2,6 +2,7 @@ const User = require('../models/user')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const jwt = require('jsonwebtoken')
+const {promisify} = require('util')
 
 const signToken = id => {
     return jwt.sign({id},process.env.JWT_SECRET,{
@@ -49,6 +50,13 @@ exports.login = catchAsync(async (req,res,next) => {
 })
 
 exports.protect = catchAsync(async (req,res,next) => {
-    
+    let token
+
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+        token = req.headers.authorization.split(' ')[1]    
+    }
+    if(!token){
+        return next(new AppError('You are not logged in to get access',401))
+    }
     next()
 })
