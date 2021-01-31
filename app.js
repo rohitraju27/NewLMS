@@ -36,6 +36,14 @@ const batchRouter = require('./routes/batchRoutes')
 
 app.use('/api/v1/batches',batchRouter)
 
+app.all('*',(req,res,next) => {
+    res.status(404).json({
+        status:'fail',
+        message:`Can't find ${req.originalUrl} on this request`
+    })
+    next()
+})
+
 app.listen(PORT, (err) => {
     if(err){
         console.log(`Error in running the server ${err}`);
