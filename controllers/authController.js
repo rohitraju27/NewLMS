@@ -58,5 +58,7 @@ exports.protect = catchAsync(async (req,res,next) => {
     if(!token){
         return next(new AppError('You are not logged in to get access',401))
     }
+
+    const decoded = await promisify(jwt.verify)(token,process.env.JWT_EXPIRES_IN)
     next()
 })
