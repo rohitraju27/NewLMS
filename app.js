@@ -5,7 +5,8 @@ const morgan = require('morgan')
 const dotenv = require('dotenv')
 const colors = require('colors')
 const mongoose = require('mongoose')
-
+const AppError = require('./utils/appError')
+const globalErrorHandler = require('./controllers/errorController')
 dotenv.config({
     path:'./config.env'
 })
@@ -38,25 +39,11 @@ app.use('/api/v1/batches',batchRouter)
 
 
 app.all('*',(req,res,next) => {
-    // res.status(404).json({
-    //     status:'fail',
-    //     message:`Can't find ${req.originalUrl} on this request`
-    // })
-    const error = new Error(`Can't find ${req.originalUrl} on this request`)
-        error.statusCode = 404
-        error.status = 'fail'
-        next(error)
+
+    next(new AppError(`Can't find ${req.originalUrl} on this request`,404))
 })
 
-app.use((err,req,res,next) => {
-    err.statusCode = err.statusCode || 500
-    err.status = err.status || 'error'
-    res.status(err.statusCode).json({
-        status:err.status,
-        message:err.message
-    })
-    next()
-})
+app.use(globalErrorHandler)
 
 
 app.listen(PORT, (err) => {
