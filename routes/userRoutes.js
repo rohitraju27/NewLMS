@@ -7,7 +7,7 @@ router.post('/signup',signup)
 router.post('/login',login)
 
 router.post('/forgotPassword',forgotPassword)
-router.post('/resetPassword',resetPassword)
+router.post('/resetPassword/:token',resetPassword)
 
 router.route('/').get(getAllUser)
 // router.route('/:id').get().patch().delete()
