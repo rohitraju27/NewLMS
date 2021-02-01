@@ -1,4 +1,4 @@
-const Batch = require('../models/batch')
+const Batch = require('../models/batchModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
