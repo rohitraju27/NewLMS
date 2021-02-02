@@ -4,11 +4,18 @@ const batchSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    users:
+    user:
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'User',
-            required:true
+            required:[true,'Batch must belong to user']
+        }
+    ,
+    week:
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Week',
+            required:[true,'Batch must belong to week']
         }
     
 },{
@@ -20,8 +27,11 @@ const batchSchema = new mongoose.Schema({
 
 batchSchema.pre(/^find/,function(next){
     this.populate({
-        path:'users',
+        path:'user',
         select:'name email'
+    }).populate({
+        path:'week',
+        select:'title'
     })
     next()
 })
