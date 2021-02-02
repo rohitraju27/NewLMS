@@ -3,6 +3,8 @@ const router = express.Router();
 const {getAllWeeks,createWeek, getSingleWeek} = require('../controllers/weekController')
 const {protect,restrictTo} = require('../controllers/authController')
 
+
+
 router.route('/').get(getAllWeeks).post(createWeek)
 // router.route('/:id').get().patch().delete()
 router.route('/:id').get(getSingleWeek)

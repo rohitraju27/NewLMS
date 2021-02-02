@@ -26,6 +26,9 @@ exports.getSingleWeek = catchAsync(async (req,res,next) => {
 })
 
 exports.createWeek = catchAsync(async (req,res,next) => {
+    if(!req.body.batch){
+        req.body.batch = req.params.batchId
+    }
     const newWeek = await Week.create(req.body)
 
     res.status(201).json({
