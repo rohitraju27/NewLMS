@@ -4,13 +4,14 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
 exports.getAllBatch = catchAsync( async (req,res,next) => {
+        
         const features = new APIFeatures(Batch.find(),req.query)
         .filter()
         .sort()
         .limitFields()
         .pagination()
 
-        const batches = await features.query
+        const batches = await features.query.populate('weeks')
 
         res.status(200).json({
             status:'success',

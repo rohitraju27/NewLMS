@@ -20,13 +20,13 @@ const weekSchema = new mongoose.Schema({
     timestamps:true
 })
 
-weekSchema.pre(/^find/,function(next){
-    this.populate({
-        path:'batch',
-        select:'title'
-    })
-    next()
-})
+// weekSchema.pre(/^find/,function(next){
+//     this.populate({
+//         path:'batch',
+//         select:'title'
+//     })
+//     next()
+// })
 
 weekSchema.virtual('topics',{
     ref:'Topic',

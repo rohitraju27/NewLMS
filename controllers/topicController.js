@@ -3,7 +3,12 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
 exports.getAllTopics = catchAsync(async (req,res,next) => {
-    const topics = await Topic.find()
+
+    let filter = {}
+    if(req.params.weekId){
+        filter = {week:req.params.weekId}
+    }
+    const topics = await Topic.find(filter)
 
     res.status(200).json({
         status:'success',

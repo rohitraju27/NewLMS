@@ -21,12 +21,12 @@ const topicSchema = new mongoose.Schema({
     timestamps:true
 })
 
-topicSchema.pre(/^find/,function(next){
-    this.populate({
-        path:'week',
-        select:'title'
-    })
-    next()
-})
+// topicSchema.pre(/^find/,function(next){
+//     this.populate({
+//         path:'week',
+//         select:'title'
+//     })
+//     next()
+// })
 
 module.exports = mongoose.model('Topic',topicSchema)

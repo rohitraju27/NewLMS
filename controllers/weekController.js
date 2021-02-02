@@ -3,7 +3,8 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
 exports.getAllWeeks = catchAsync(async (req,res,next) => {
-    const weeks = await Week.find()
+
+    const weeks = await Week.find().populate('topics')
 
     res.status(200).json({
         status:'success',
