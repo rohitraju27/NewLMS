@@ -68,39 +68,67 @@ exports.deleteMe = catchAsync( async (req,res,next) => {
     })
 })
 
-exports.createUser = catchAsync (async (req,res) => {
+// exports.createUser = catchAsync (async (req,res) => {
     
-        const user = await Batch.create(req.body)
-        res.status(200).json({
-            status:'success',
-            data:user
-        })
-})
+//         const user = await Batch.create(req.body)
+//         res.status(200).json({
+//             status:'success',
+//             data:user
+//         })
+// })
 
-exports.updateUser = catchAsync(async (req,res) => {
+// exports.updateUser = catchAsync(async (req,res) => {
 
-        const user = await User.findByIdAndUpdate(req.params.id,req.body,{
-            new:true,
-            runValidators:true
-        })
-        if(!user){
-            return next(new AppError('There is no user',404))
-        }
-        res.status(200).json({
-            status:'success',
-            data:user
-        })
-})
+//         const user = await User.findByIdAndUpdate(req.params.id,req.body,{
+//             new:true,
+//             runValidators:true
+//         })
+//         if(!user){
+//             return next(new AppError('There is no user',404))
+//         }
+//         res.status(200).json({
+//             status:'success',
+//             data:user
+//         })
+// })
 
-exports.deleteUser = catchAsync(async (req,res) => {
-        const user = await User.findByIdAndDelete(req.params.id)
+// exports.deleteUser = catchAsync(async (req,res) => {
+//         const user = await User.findByIdAndDelete(req.params.id)
         
-        if(!user){
-            return next(new AppError('There is no user',404))
-        }
+//         if(!user){
+//             return next(new AppError('There is no user',404))
+//         }
 
-        res.status(200).json({
-            status:'success',
-            data:{}
-        })
-})
+//         res.status(200).json({
+//             status:'success',
+//             data:{}
+//         })
+// })
+
+exports.getUser = (req,res) => {
+    res.status(500).json({
+        status:'Error',
+        messsage:"This route is not yet defined"
+    })
+}
+
+exports.createUser = (req,res) => {
+    res.status(500).json({
+        status:'Error',
+        messsage:"This route is not yet defined"
+    })
+}
+
+exports.updateUser = (req,res) => {
+    res.status(500).json({
+        status:'Error',
+        messsage:"This route is not yet defined"
+    })
+}
+
+exports.deleteUser = (req,res) => {
+    res.status(500).json({
+        status:'Error',
+        messsage:"This route is not yet defined"
+    })
+}
