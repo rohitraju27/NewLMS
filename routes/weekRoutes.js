@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router();
+const router = express.Router({mergeParams:true});
 const {getAllWeeks,createWeek, getSingleWeek} = require('../controllers/weekController')
 const {protect,restrictTo} = require('../controllers/authController')
 
