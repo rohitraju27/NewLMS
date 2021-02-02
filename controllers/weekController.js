@@ -26,12 +26,12 @@ exports.getSingleWeek = catchAsync(async (req,res,next) => {
 })
 
 exports.createWeek = catchAsync(async (req,res,next) => {
-    const newWweek = await Week.create(req.body)
+    const newWeek = await Week.create(req.body)
 
     res.status(201).json({
         status:'success',
         data:{
-            week:newWweek
+            week:newWeek
         }
     })
 })
