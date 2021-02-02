@@ -26,6 +26,9 @@ exports.getSingleTopic = catchAsync(async (req,res,next) => {
 })
 
 exports.createTopic = catchAsync(async (req,res,next) => {
+    if(!req.body.week){
+        req.body.week = req.params.weekId
+    }
     const newTopic = await Topic.create(req.body)
 
     res.status(201).json({

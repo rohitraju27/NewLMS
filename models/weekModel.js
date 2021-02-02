@@ -21,10 +21,10 @@ const weekSchema = new mongoose.Schema({
 })
 
 weekSchema.pre(/^find/,function(next){
-    // this.populate({
-    //     path:'batch',
-    //     select:'title'
-    // })
+    this.populate({
+        path:'batch',
+        select:'title'
+    })
     next()
 })
 

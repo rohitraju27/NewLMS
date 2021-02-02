@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router();
+const router = express.Router({mergeParams:true});
 const {getAllTopics,getSingleTopic,createTopic} = require('../controllers/topicController')
 const {protect,restrictTo} = require('../controllers/authController')
 

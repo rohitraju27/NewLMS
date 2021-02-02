@@ -4,7 +4,7 @@ const {createBatch,getAllBatch,getBatch,updateBatch,deleteBatch} = require('../c
 const {protect, restrictTo} = require('../controllers/authController')
 const weekRouter = require('../routes/weekRoutes')
 
-router.use('/batchId/weeks',weekRouter)
+router.use('/:batchId/weeks',weekRouter)
 
 router.route('/').get(protect,getAllBatch).post(createBatch)
 router.route('/:id').get(getBatch).patch(updateBatch).delete(protect,restrictTo('admin'),deleteBatch)
