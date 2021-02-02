@@ -9,7 +9,16 @@ const weekSchema = new mongoose.Schema({
         required:[true,'Please for description for week']
     }    
 },{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
+},{
     timestamps:true
+})
+
+weekSchema.virtual('batches',{
+    ref:'Batch',
+    foreignField:'week',
+    localField:'_id'
 })
 
 
