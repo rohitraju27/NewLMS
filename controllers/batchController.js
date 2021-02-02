@@ -22,10 +22,7 @@ exports.getAllBatch = catchAsync( async (req,res,next) => {
 
 exports.getBatch = catchAsync (async (req,res,next) => {
    
-        const batch = await Batch.findById(req.params.id).populate({
-            path:'users',
-            select:'name email'
-        })
+        const batch = await Batch.findById(req.params.id).populate('weeks')
 
         if(!batch){
             return next(new AppError('There is not batch',404))

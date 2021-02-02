@@ -3,21 +3,7 @@ const batchSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true
-    },
-    user:
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'User',
-            required:[true,'Batch must belong to user']
-        }
-    ,
-    week:
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Week',
-            required:[true,'Batch must belong to week']
-        }
-    
+    } 
 },{
     toJSON:{virtuals:true},
     toObject:{virtuals:true}
@@ -25,15 +11,21 @@ const batchSchema = new mongoose.Schema({
     timestamps:true
 })
 
-batchSchema.pre(/^find/,function(next){
-    this.populate({
-        path:'user',
-        select:'name email'
-    }).populate({
-        path:'week',
-        select:'title'
-    })
-    next()
+// batchSchema.pre(/^find/,function(next){
+//     this.populate({
+//         path:'user',
+//         select:'name email'
+//     }).populate({
+//         path:'week',
+//         select:'title'
+//     })
+//     next()
+// })
+
+batchSchema.virtual('weeks',{
+    ref:'Week',
+    foreignField:'batch',
+    localField:'_id'
 })
 
 module.exports = mongoose.model('Batch',batchSchema)

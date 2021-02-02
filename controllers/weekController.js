@@ -15,7 +15,7 @@ exports.getAllWeeks = catchAsync(async (req,res,next) => {
 })
 
 exports.getSingleWeek = catchAsync(async (req,res,next) => {
-    const week = await Week.findById(req.params.id).populate('batches')
+    const week = await Week.findById(req.params.id).populate('topics')
 
     res.status(200).json({
         status:'success',
