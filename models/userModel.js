@@ -43,6 +43,11 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:true,
         select:false
+    },
+    batch:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
     }
 })
 

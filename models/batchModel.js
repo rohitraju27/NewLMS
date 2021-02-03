@@ -28,4 +28,10 @@ batchSchema.virtual('weeks',{
     localField:'_id'
 })
 
+batchSchema.virtual('users',{
+    ref:'User',
+    foreignField:'batch',
+    localField:'_id'
+})
+
 module.exports = mongoose.model('Batch',batchSchema)

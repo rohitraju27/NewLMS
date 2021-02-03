@@ -8,7 +8,10 @@ const topicSchema = new mongoose.Schema({
         type:String,
         required:[true,'Please for description for week']
     },
-    photo:String,   
+    avatar:{
+        type:String,
+        required:true
+    },   
     week:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Week',

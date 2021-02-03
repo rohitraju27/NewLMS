@@ -11,7 +11,7 @@ exports.getAllBatch = catchAsync( async (req,res,next) => {
         .limitFields()
         .pagination()
 
-        const batches = await features.query.populate('weeks')
+        const batches = await features.query.populate('weeks').populate('users')
 
         res.status(200).json({
             status:'success',

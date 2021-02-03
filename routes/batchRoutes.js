@@ -3,7 +3,8 @@ const router = express.Router();
 const {createBatch,getAllBatch,getBatch,updateBatch,deleteBatch} = require('../controllers/batchController')
 const {protect, restrictTo} = require('../controllers/authController')
 const weekRouter = require('../routes/weekRoutes')
-
+const adminUserRouter = require('../routes/adminUserRoutes')
+router.use('/:batchId/admin',adminUserRouter)
 router.use('/:batchId/weeks',weekRouter)
 
 router.route('/').get(protect,getAllBatch).post(createBatch)

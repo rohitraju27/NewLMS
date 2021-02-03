@@ -34,12 +34,25 @@ exports.createTopic = catchAsync(async (req,res,next) => {
     if(!req.body.week){
         req.body.week = req.params.weekId
     }
-    const newTopic = await Topic.create(req.body)
 
+  
+    const newTopic = await Topic.create(req.body)
+    // if(req.file){
+    //     console.log(req.file);
+    //     newTopic.avatar = req.file.path
+    // }
     res.status(201).json({
         status:'success',
         data:{
             topic:newTopic
         }
+    })
+})
+
+exports.deleteTopic = catchAsync( async (req,res,next) => {
+    await Topic.findByIdAndDelete(req.params.id)
+
+    res.status(204).json({
+        data:null
     })
 })
