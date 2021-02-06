@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const topicSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -6,12 +7,15 @@ const topicSchema = new mongoose.Schema({
     },
     description:{
         type:String,
-        required:[true,'Please for description for week']
+        required:[true,'Please provide description for week']
     },
-    avatar:{
+    postDate:{
         type:String,
         required:true
-    },   
+    }, 
+    avatar:{
+        type:String
+    },  
     week:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Week',
@@ -31,5 +35,6 @@ const topicSchema = new mongoose.Schema({
 //     })
 //     next()
 // })
+
 
 module.exports = mongoose.model('Topic',topicSchema)

@@ -38,12 +38,11 @@ exports.getBatch = catchAsync (async (req,res,next) => {
 })
 
 exports.createBatch = catchAsync (async (req,res) => {
-    
-        const batch = await (await Batch.create(req.body))
-        res.status(200).json({
-            status:'success',
-            data:batch
-        })
+    const batch = await Batch.create(req.body)
+    res.status(200).json({
+        status:'success',
+        data:batch
+    })
 })
 
 exports.updateBatch = catchAsync(async (req,res) => {

@@ -1,7 +1,9 @@
 const Topic = require('../models/topicModel')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
-
+const fileUpload = require('express-fileupload')
+const path = require('path')
+const multer = require('multer')
 exports.getAllTopics = catchAsync(async (req,res,next) => {
 
     let filter = {}
@@ -29,22 +31,34 @@ exports.getSingleTopic = catchAsync(async (req,res,next) => {
         }
     })
 })
+var storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'uploads')
+    },
+    filename:function(req,file,cb){
+        cb(null,file.fieldname + '-'+ Date.now() + path.extname(file.originalname))
+    }
+})
+
+exports.upload = multer({
+    storage:storage
+})
 
 exports.createTopic = catchAsync(async (req,res,next) => {
     if(!req.body.week){
         req.body.week = req.params.weekId
     }
-
-  
-    const newTopic = await Topic.create(req.body)
-    // if(req.file){
-    //     console.log(req.file);
-    //     newTopic.avatar = req.file.path
-    // }
+    const file = req.files
+    if(!file){
+        return next(new AppError('There is no file',400))
+    }
+    let newTopic = await Topic.create(req.body)
     res.status(201).json({
         status:'success',
         data:{
-            topic:newTopic
+            // topic:newTopic,files:file
+            newTopic,
+            file
         }
     })
 })

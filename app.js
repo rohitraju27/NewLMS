@@ -29,6 +29,7 @@ app.use('/api/v1/admin',adminUserRouter)
 
 
 app.use('/uploads',express.static('uploads'))
+// app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.all('*',(req,res,next) => {
     next(new Error(`Can't find ${req.originalUrl} on this route`,404))

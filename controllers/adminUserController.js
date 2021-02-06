@@ -2,7 +2,7 @@ const User = require('../models/userModel')
 const APIFeatures = require('../utils/apiFeatures')
 const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
-
+const sendEmail = require('../utils/email')
 const filterObj = (obj,...allowedFields) => {
     const newObj = {}
     Object.keys(obj).forEach(el => {
@@ -44,7 +44,20 @@ exports.getUser = catchAsync (async (req,res,next) => {
 exports.createUser = catchAsync (async (req,res,next) => {
         if(!req.body.batch) req.body.batch = req.params.batchId    
         const user = await User.create(req.body)
-        res.status(200).json({
+
+        const message = `Welcome to the Course`
+
+        try {
+            await sendEmail({
+                email:user.email,
+                subject:'Welcome to the course',
+                message
+            })
+        } catch (error) {
+            console.log(error);
+            return next(new AppError('There was an error in sending mail. please try again later',500))
+        }
+       return res.status(200).json({
             status:'success',
             data:user
         })

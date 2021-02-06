@@ -3,6 +3,22 @@ const batchSchema = new mongoose.Schema({
     title:{
         type:String,
         required:true
+    },
+    description:{
+        type:String,
+        required:true
+    },
+    trainerName:{
+        type:String,
+        required:true
+    },
+    startDate:{
+        type:Date,
+        required:true
+    },
+    endDate:{
+        type:Date,
+        required:true
     } 
 },{
     toJSON:{virtuals:true},
