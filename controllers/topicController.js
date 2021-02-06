@@ -58,7 +58,7 @@ exports.createTopic = catchAsync(async (req,res,next) => {
         data:{
             // topic:newTopic,files:file
             newTopic,
-            file
+
         }
     })
 })
